@@ -1,5 +1,6 @@
 var webpack = require('webpack');
-var path = require('path')
+var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var config = {
   context: path.join(__dirname, 'src'),
@@ -22,11 +23,7 @@ var config = {
       },
       {
         test: /\.(sass|scss)$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-        ]
+        use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.json$/,
@@ -34,14 +31,15 @@ var config = {
       }      
     ]
   },
-  devtool: "eval-source-map"
+  devtool: "eval-source-map",
   devServer: {
     open: true,
     compress: true,
     hot: false,    
     contentBase: path.join(__dirname, 'src'),
     openPage: ''
-  }
+  },
+  plugins: [new HtmlWebpackPlugin()]
 };
 
 if (process.env.NODE_ENV === "production") {
