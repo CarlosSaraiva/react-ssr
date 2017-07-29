@@ -1,6 +1,21 @@
-import _ from 'lodash'
-const array = [1]
-const other = _.concat(array, 2, [3], [[4]])
+import React, { Component }     from 'react'
+import { Switch }               from 'react-router-dom'
+import Helmet                   from 'react-helmet'
+import Home      from './components/home'
 
-console.log(other)
-console.log('App.js')
+export default class App extends Component {
+
+  render() {
+    return (
+      <div>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>BANDIT</title>
+          <link rel="canonical" href="http://www.bandit.com" />
+        </Helmet>
+        <Home />
+      </div>
+    )
+  }
+
+}

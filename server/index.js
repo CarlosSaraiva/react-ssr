@@ -6,7 +6,9 @@ const webpack = require("webpack");
 const path = require('path');
 const server = require('./server.js')
 
-app.use(webpackMiddleware(webpack(config), {
+const compiler = webpack(config)
+
+app.use(webpackMiddleware(compiler, {
 	noInfo: false,
 	quiet: false,
 	lazy: false,
@@ -14,7 +16,6 @@ app.use(webpackMiddleware(webpack(config), {
 		aggregateTimeout: 300,
 		poll: true
   },
-  contentBase: path.resolve('../', 'src'),
 	publicPath: "/assets",
 	index: "index.html",
 	headers: { "X-Custom-Header": "yes" },
@@ -24,7 +25,10 @@ app.use(webpackMiddleware(webpack(config), {
 	},
 	reporter: null,
 	serverSideRender: true,
+	log: console.log	
 }));
+
+app.use(require("webpack-hot-middleware")(compiler));
 
 app.use((req, res) => {
 

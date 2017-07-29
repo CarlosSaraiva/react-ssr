@@ -1,25 +1,28 @@
-var webpack = require('webpack');
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const AssetsByTypePlugin = require('webpack-assets-by-type-plugin')
 
-var config = {
+const config = {
   context: path.join(__dirname, 'src'),
   entry: {
-    app: './app.js',
+    app: [
+      'babel-polyfill',
+      'react-hot-loader/patch',      
+      'webpack-hot-middleware/client',
+      './index.js'      
+    ],
   },
   output: {
     path: path.join(__dirname, 'dist'), 
-    publicPath: '/assets',
+    publicPath: '/assets/',
     filename: '[name].bundle.js',
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['babel-preset-es2015'].map(require.resolve)
-        }
+        loader: 'babel-loader'
       },
       {
         test: /\.(sass|scss)$/,
@@ -28,7 +31,11 @@ var config = {
       {
         test: /\.json$/,
         loader: "json-loader"
-      }      
+      },
+      { 
+        test: /\.(png|jpe?g|svg|woff2?|ttf|eot)$/, 
+        loader: 'url-loader?limit=8000' 
+      }
     ]
   },
   devtool: "eval-source-map",
@@ -39,7 +46,13 @@ var config = {
     contentBase: path.join(__dirname, 'src'),
     openPage: ''
   },
-  plugins: [new HtmlWebpackPlugin()]
+  plugins: [
+    new AssetsByTypePlugin({
+      path: path.join(__dirname, 'dist','assets.json') // default
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()    
+  ]  
 };
 
 if (process.env.NODE_ENV === "production") {
