@@ -2,7 +2,7 @@ import React  from 'react'
 import Helmet from 'react-helmet'
 
 const Html = ({ styles, assets, state, content }) => {
-  const helmet = Helmet.renderStatic()
+  const helmet    = Helmet.renderStatic()
   const htmlAttrs = helmet.htmlAttributes.toComponent()
   const bodyAttrs = helmet.bodyAttributes.toComponent()
 
@@ -15,10 +15,9 @@ const Html = ({ styles, assets, state, content }) => {
         {helmet.link.toComponent()}
         {assets.css.map(path => <link rel="stylesheet" type="text/css" key={path} href={path} />)}
         {styles}
-        
       </head>
       <body {...bodyAttrs}>
-        <main id="app" dangerouslySetInnerHTML={{ __html: content }} />
+        <main id="root" dangerouslySetInnerHTML={{ __html: content }} />
         <script dangerouslySetInnerHTML={{ __html: state }} />
         {assets.js.map(path => <script key={path} src={path} />)}
       </body>

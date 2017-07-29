@@ -1,14 +1,12 @@
-const express = require('express')
-const app = express()
+const express           = require('express')
+const server 						= require('express')()
 const webpackMiddleware = require("webpack-dev-middleware");
-const config = require('../webpack.config.js')
-const webpack = require("webpack");
-const path = require('path');
-const server = require('./server.js')
+const config 						= require('../webpack.config.js')
+const webpack 					= require("webpack");
+const path 							= require('path');
+const compiler 					= webpack(config)
 
-const compiler = webpack(config)
-
-app.use(webpackMiddleware(compiler, {
+server.use(webpackMiddleware(compiler, {
 	noInfo: false,
 	quiet: false,
 	lazy: false,
@@ -28,24 +26,10 @@ app.use(webpackMiddleware(compiler, {
 	log: console.log	
 }));
 
-app.use(require("webpack-hot-middleware")(compiler));
+server.use(require("webpack-hot-middleware")(compiler));
+server.use(require('./ssr.js').default);
+server.use('', express.static(path.resolve(process.cwd(), 'dist')))
 
-app.use((req, res) => {
-
-	res.send(`
-    <html>
-      <head>
-        <title>My App</title>
-      </head>
-      <body>
-        <div id="root"></div>
-      </body>
-      <script src="assets/app.bundle.js"></script>
-    </html>		
-	`)
-
+server.listen(3005, function () {
+  console.log('Server listening on: ' + 3005)
 })
-
-app.listen(3005, function () {
-  console.log('Server listening on: ' + 3005);
-});

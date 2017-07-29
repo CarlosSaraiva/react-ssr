@@ -1,7 +1,6 @@
-const webpack = require('webpack');
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const AssetsByTypePlugin = require('webpack-assets-by-type-plugin')
+const webpack             = require('webpack');
+const path                = require('path');
+const AssetsByTypePlugin  = require('webpack-assets-by-type-plugin')
 
 const config = {
   context: path.join(__dirname, 'src'),
@@ -17,6 +16,11 @@ const config = {
     path: path.join(__dirname, 'dist'), 
     publicPath: '/assets/',
     filename: '[name].bundle.js',
+  },
+  resolve: {
+    alias: {
+      '@lib': path.join(__dirname, 'lib')
+    }
   },
   module: {
     rules: [

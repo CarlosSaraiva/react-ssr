@@ -1,5 +1,5 @@
 import React from 'react'
 
 export default () => (
-  <p>Home</p>
+  <p style={{backgroundColor: 'red'}}>Home</p>
 )

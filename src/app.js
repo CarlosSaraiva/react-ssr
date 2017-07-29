@@ -1,7 +1,7 @@
-import React, { Component }     from 'react'
-import { Switch }               from 'react-router-dom'
-import Helmet                   from 'react-helmet'
-import Home      from './components/home'
+import React, { Component } from 'react'
+import { Switch }           from 'react-router-dom'
+import Helmet               from 'react-helmet'
+import Home                 from './components/home'
 
 export default class App extends Component {
 
