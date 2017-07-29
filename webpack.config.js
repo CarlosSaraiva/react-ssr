@@ -11,6 +11,30 @@ var config = {
     publicPath: '/assets',
     filename: '[name].bundle.js',
   },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['babel-preset-es2015'].map(require.resolve)
+        }
+      },
+      {
+        test: /\.(sass|scss)$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ]
+      },
+      {
+        test: /\.json$/,
+        loader: "json-loader"
+      }      
+    ]
+  },
+  devtool: "eval-source-map"
   devServer: {
     open: true,
     compress: true,
@@ -19,5 +43,9 @@ var config = {
     openPage: ''
   }
 };
+
+if (process.env.NODE_ENV === "production") {
+  config.devtool = "source-map";
+}
 
 module.exports = config;
