@@ -1,12 +1,13 @@
 {
-  "name": "bandit",
+  "name": "react-ssr",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
-    "build": "NODE_ENV=production webpack -p --config webpack.config.js"
+    "build": "NODE_ENV=production webpack -p --config webpack.config.js",
+    "docker": "docker run -p 3005:3005 -t react-ssr -v /$(pwd):/build ."
   },
   "author": "",
   "license": "ISC",
