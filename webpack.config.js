@@ -1,6 +1,6 @@
 const webpack             = require('webpack');
 const path                = require('path');
-const AssetsByTypePlugin  = require('webpack-assets-by-type-plugin')
+const AssetsByTypePlugin  = require('webpack-assets-by-type-plugin');
 
 const config = {
   context: path.join(__dirname, 'src'),
@@ -10,12 +10,12 @@ const config = {
       'react-hot-loader/patch',      
       'webpack-hot-middleware/client',
       './index.js'      
-    ],
+    ]
   },
   output: {
     path: path.join(__dirname, 'dist'), 
     publicPath: '/assets/',
-    filename: '[name].bundle.js',
+    filename: '[name].bundle.js'
   },
   resolve: {
     alias: {
@@ -52,7 +52,7 @@ const config = {
   },
   plugins: [
     new AssetsByTypePlugin({
-      path: path.join(__dirname, 'dist','assets.json') // default
+      path: path.join(__dirname, 'dist', 'assets.json')
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()    

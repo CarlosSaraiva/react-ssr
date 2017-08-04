@@ -1,5 +1,5 @@
 import express                   from 'express'
-import { renderApp, renderHtml } from '../lib/ssr-helpers.js'    
+import { renderApp, renderHtml } from './ssr-helpers.js'    
 import App                       from '../src/app.js'
 import Html                      from '../src/html.js'
 import assets                    from '../dist/assets.json'
